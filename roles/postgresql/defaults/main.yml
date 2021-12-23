@@ -1,0 +1,7 @@
+---
+
+
+postgresql_version: "{{postgresql_version}}"
+
+postgresql_backup_dir: "{{postgresql_backup_dir}}"
+postgresql_database_name: "{{postgresql_database_name}}"

@@ -1,0 +1,19 @@
+---
+- name: Allow OpenSSH
+  shell: ufw allow OpenSSH
+
+- name: Allow OpenSSH
+  shell: chmod 700 /home/{{remote_user}}/.ssh && chmod 600 /home/{{remote_user}}/.ssh/authorized_keys
+
+- name: Configure SSH to allow logins only with keypairs
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  with_items:
+    - regexp: "^PubkeyAuthentication"
+      line: "PubkeyAuthentication yes"
+    - regexp: "^PasswordAuthentication"
+      line: "PasswordAuthentication no"
+  notify: restart ssh
